@@ -41,7 +41,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        command: mysqld --sql-mode=""
+        command: mysqld --innodb-use-native-aio=0
         networks:
             - bitrix
         restart: always
@@ -65,9 +65,7 @@ services:
             - ./logs/memcached:/var/log/memcached
             - ./data/mysql:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
-            - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
-            - /etc/localtime:/etc/localtime/:ro
+            - ./www:/var/www/bitrix
         networks:
             - bitrix
 networks:
